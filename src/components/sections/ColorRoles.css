@@ -1,0 +1,61 @@
+.color-roles__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--md-space-md);
+  flex-wrap: wrap;
+}
+
+.color-roles__reset-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  margin-top: 4px;
+  border-radius: var(--md-shape-full);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms var(--md-motion-standard), transform 120ms var(--md-motion-standard);
+}
+
+.color-roles__reset-btn:hover {
+  background: var(--md-sys-color-surface-container-highest);
+}
+
+.color-roles__reset-btn:active {
+  transform: scale(0.97);
+}
+
+.color-roles__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--md-space-sm);
+}
+
+@media (max-width: 480px) {
+  .color-roles__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop workspace: edit (role grid) and verify (accessibility panel)
+   side by side instead of stacked, since they're directly complementary —
+   editing a color and seeing its contrast implications at the same time is
+   exactly the "design tool" feeling V3 is going for. Mobile/tablet keep
+   the simple stacked flow untouched. */
+@media (min-width: 1200px) {
+  .color-roles__workspace {
+    display: grid;
+    grid-template-columns: 1.65fr 1fr;
+    gap: var(--md-space-lg);
+    align-items: start;
+  }
+
+  .color-roles__grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}

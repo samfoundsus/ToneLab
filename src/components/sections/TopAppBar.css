@@ -1,0 +1,95 @@
+.top-app-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 14px var(--md-space-sm);
+  transition: background-color var(--md-motion-medium) var(--md-motion-standard), border-color var(--md-motion-medium) var(--md-motion-standard), box-shadow var(--md-motion-medium) var(--md-motion-standard);
+  border-bottom: 1px solid transparent;
+}
+
+.top-app-bar--scrolled {
+  /* No backdrop-filter here on purpose: this bar is fixed and visible for
+     the entire scroll, so a blur would force the browser to resample the
+     page behind it on every frame — a common, avoidable source of scroll
+     jank. A near-solid tonal fill reads as "elevated" just as well. */
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 99%, transparent);
+  border-bottom-color: var(--md-sys-color-outline-variant);
+  box-shadow: var(--md-elevation-1);
+}
+
+.top-app-bar__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.top-app-bar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: var(--md-shape-full);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 120ms var(--md-motion-standard);
+}
+
+.top-app-bar__brand:active {
+  transform: scale(0.97);
+}
+
+.top-app-bar__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  flex-shrink: 0;
+}
+
+.top-app-bar__title {
+  color: var(--md-sys-color-on-background);
+  white-space: nowrap;
+}
+
+.top-app-bar__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.top-app-bar__nav button {
+  background: none;
+  border: none;
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: var(--md-shape-full);
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--md-motion-fast) var(--md-motion-standard), color var(--md-motion-fast) var(--md-motion-standard), transform 120ms var(--md-motion-standard);
+}
+
+.top-app-bar__nav button:hover {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.top-app-bar__nav button:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 760px) {
+  .top-app-bar__nav {
+    display: none;
+  }
+}

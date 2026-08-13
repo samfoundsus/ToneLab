@@ -1,0 +1,12 @@
+.split-parent {
+  overflow: hidden;
+}
+
+.split-line {
+  overflow: hidden;
+}
+
+.split-word,
+.split-char {
+  will-change: transform, opacity, filter;
+}

@@ -1,0 +1,108 @@
+.phone-preview {
+  position: relative;
+  overflow: hidden;
+  background: var(--md-sys-color-surface);
+  transition: background-color 500ms var(--md-motion-standard);
+}
+
+.phone-preview__container {
+  position: relative;
+  z-index: 1;
+}
+
+.phone-preview__theme-switch {
+  display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: var(--md-space-md);
+  border-radius: var(--md-shape-full);
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+}
+
+.phone-preview__theme-chip {
+  padding: 8px 18px;
+  border-radius: var(--md-shape-full);
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms var(--md-motion-standard), color 200ms var(--md-motion-standard);
+}
+
+@media (max-width: 380px) {
+  /* Three chips at full padding can just barely overflow the smallest
+     phone widths (~320-360px) once the section's side padding is
+     accounted for — tighten up rather than risk horizontal scroll. */
+  .phone-preview__theme-chip {
+    padding: 7px 12px;
+    font-size: 0.78rem;
+  }
+}
+
+.phone-preview__theme-chip--active {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.phone-preview__theme-chip:not(.phone-preview__theme-chip--active):hover {
+  background: var(--md-sys-color-surface-container-high);
+}
+
+.phone-preview__grid {
+  /* Explicit mobile/tablet/desktop breakpoints (matching the header/step
+     sections) instead of relying on flex-wrap alone: one column on mobile,
+     two on tablet, a spacious three-across on desktop. minmax(0, 1fr) —
+     not a bare 1fr — is what actually prevents a grid item from being
+     forced wider than its column and overflowing on narrow screens. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: var(--md-space-md);
+  padding-top: var(--md-space-sm);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .phone-preview__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--md-space-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .phone-preview__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.phone-preview__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--md-space-sm);
+  padding: var(--md-space-lg) var(--md-space-md) var(--md-space-md);
+  border-radius: 40px 40px 28px 28px;
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  max-width: 100%;
+  transition: background-color 500ms var(--md-motion-standard), border-color 500ms var(--md-motion-standard);
+}
+
+.phone-preview__label {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+@media (max-width: 640px) {
+  .phone-preview__stage {
+    padding: var(--md-space-md) var(--md-space-sm) var(--md-space-sm);
+  }
+}

@@ -1,0 +1,104 @@
+.settings-modal__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--md-space-sm);
+  animation: settings-fade-in 200ms ease-out;
+}
+
+@keyframes settings-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.settings-modal {
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--md-shape-xl);
+  padding: var(--md-space-md);
+  margin-bottom: 96px;
+  box-shadow: var(--md-elevation-4);
+  animation: settings-rise-in 260ms var(--md-motion-emphasized);
+}
+
+@keyframes settings-rise-in {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.settings-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--md-space-sm);
+}
+
+.settings-modal__header p {
+  color: var(--md-sys-color-on-surface);
+}
+
+.settings-modal__close {
+  background: var(--md-sys-color-surface-container-high);
+  border: none;
+  color: var(--md-sys-color-on-surface);
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.settings-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-sm);
+}
+
+.settings-modal__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--md-space-sm);
+  padding: var(--md-space-sm);
+  border-radius: var(--md-shape-md);
+  background: var(--md-sys-color-surface-container-low);
+}
+
+.settings-modal__row p:first-child {
+  color: var(--md-sys-color-on-surface);
+  margin: 0 0 2px;
+}
+
+.settings-modal__row p:last-child {
+  margin: 0;
+}
+
+.settings-modal__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--md-shape-full);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+.settings-modal__action:hover {
+  background: var(--md-sys-color-surface-container-high);
+}
+
+.settings-modal__info-icon {
+  color: var(--md-sys-color-primary);
+  flex-shrink: 0;
+}

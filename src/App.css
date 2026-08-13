@@ -1,0 +1,31 @@
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.app-shell main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-shell main > * {
+  width: 100%;
+}
+
+/* Gentle, deliberate surface rhythm between sections — alternating between
+   the base surface and a slightly lower/quieter container tone, both
+   derived from the generated palette. Preview and Themes set their own
+   background directly (they also host an ambient BackgroundLayer). */
+#upload,
+#roles {
+  background: var(--md-sys-color-surface-container-lowest);
+  transition: background-color 500ms var(--md-motion-standard);
+}
+
+#export {
+  background: var(--md-sys-color-surface);
+  transition: background-color 500ms var(--md-motion-standard);
+}

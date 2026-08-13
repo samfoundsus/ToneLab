@@ -1,0 +1,146 @@
+.hero {
+  position: relative;
+  min-height: 92svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--md-sys-color-background);
+  transition: background-color 500ms var(--md-motion-standard);
+}
+
+.hero__aurora {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  filter: saturate(0.82);
+  mix-blend-mode: normal;
+}
+
+/* Ambient hero lighting (desktop/tablet only — see media queries below).
+   This is deliberately a *separate* treatment from the shared
+   <BackgroundLayer/> component used elsewhere (Preview, Themes): Hero's
+   problem is specifically that a very wide viewport leaves the left/right
+   thirds looking like empty black, which needs gradients that spread much
+   further outward than BackgroundLayer's shapes are tuned for, and needs
+   to stay completely inert on mobile (where the current composition
+   already works well). One extra static div, radial-gradient only, no
+   filter/blur, no animation — the only thing that ever moves is the
+   color transition when the palette changes underneath it. */
+.hero__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 500ms var(--md-motion-standard);
+}
+
+@media (min-width: 900px) {
+  .hero__ambient {
+    background:
+      radial-gradient(ellipse 62% 70% at 10% 22%, color-mix(in srgb, var(--md-sys-color-primary) 11%, transparent) 0%, transparent 70%),
+      radial-gradient(ellipse 64% 74% at 90% 26%, color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent) 0%, transparent 72%),
+      radial-gradient(ellipse 55% 60% at 50% 96%, color-mix(in srgb, var(--md-sys-color-secondary) 8%, transparent) 0%, transparent 68%);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero__ambient {
+    background:
+      radial-gradient(ellipse 60% 78% at 6% 24%, color-mix(in srgb, var(--md-sys-color-primary) 15%, transparent) 0%, transparent 72%),
+      radial-gradient(ellipse 62% 80% at 94% 28%, color-mix(in srgb, var(--md-sys-color-tertiary) 14%, transparent) 0%, transparent 74%),
+      radial-gradient(ellipse 50% 60% at 50% 98%, color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent) 0%, transparent 68%);
+  }
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  /* Softened from a hard 78% cutoff to a slower fade out to 92%, so the
+     ambient layer and Aurora can still read faintly toward the edges on
+     wide viewports instead of being fully painted over — the direct cause
+     of the "empty black rectangle" the desktop hero used to have. The true
+     corners (92%+) still resolve to solid background, and the text column
+     sits well inside the fully-transparent center, so legibility is
+     unaffected. */
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 38%, var(--md-sys-color-background) 92%),
+    linear-gradient(to bottom, transparent 0%, var(--md-sys-color-background) 96%);
+  transition: background-color 500ms var(--md-motion-standard);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 96px;
+  color: var(--hero-fg, #ffffff);
+}
+
+.hero__heading {
+  color: var(--hero-fg, #ffffff);
+  margin: 0 0 var(--md-space-sm);
+  text-shadow: 0 6px 26px rgba(0, 0, 0, 0.18);
+}
+
+.hero__subtitle {
+  color: color-mix(in srgb, var(--hero-fg, #ffffff) 82%, transparent);
+  max-width: 560px;
+  justify-content: center;
+  margin: 0 0 var(--md-space-lg);
+  font-size: 1.1rem;
+}
+
+@media (min-width: 1280px) {
+  .hero__subtitle {
+    /* The heading can reach up to 4.1rem at this width (see
+       .md-display-large's clamp); a slightly wider measure keeps the
+       subtitle's line length proportionate instead of looking cramped
+       underneath it. */
+    max-width: 640px;
+    font-size: 1.15rem;
+  }
+}
+
+.hero__cta {
+  display: flex;
+  justify-content: center;
+}
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 42px;
+  border: 2px solid color-mix(in srgb, var(--hero-fg, #ffffff) 50%, transparent);
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.hero__scroll-hint span {
+  display: block;
+  width: 4px;
+  height: 8px;
+  background: var(--hero-fg, #ffffff);
+  border-radius: 999px;
+  margin: 8px auto;
+  animation: hero-scroll-hint 1.8s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-hint {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@media (max-width: 640px) {
+  .hero__content {
+    padding-top: 84px;
+  }
+  .hero__scroll-hint {
+    display: none;
+  }
+}

@@ -1,0 +1,61 @@
+.material-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: var(--md-shape-full);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms var(--md-motion-standard), border-color 200ms var(--md-motion-standard),
+    transform 120ms var(--md-motion-standard);
+}
+
+.material-btn:active {
+  transform: scale(0.97);
+}
+
+.material-btn__icon {
+  flex-shrink: 0;
+}
+
+.material-btn--tonal {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border-color: var(--md-sys-color-outline-variant);
+}
+.material-btn--tonal:hover {
+  background: var(--md-sys-color-surface-container-highest);
+}
+
+.material-btn--filled {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+.material-btn--filled:hover {
+  filter: brightness(1.06);
+}
+
+.material-btn--outlined {
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-outline);
+}
+.material-btn--outlined:hover {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+}
+
+.material-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}
+
+.material-btn:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}

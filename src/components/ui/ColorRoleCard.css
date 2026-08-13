@@ -1,0 +1,116 @@
+.role-card {
+  padding: var(--md-space-sm) !important;
+  border-radius: var(--md-shape-md) !important;
+  transition: transform var(--md-motion-fast) var(--md-motion-standard), box-shadow var(--md-motion-fast) var(--md-motion-standard);
+}
+
+.role-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--md-elevation-2);
+}
+
+.role-card__swatch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.6 / 1;
+  border: none;
+  border-radius: var(--md-shape-sm);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.role-card__copy-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: var(--md-shape-full);
+  /* Plain translucent fill instead of a backdrop-filter blur — this pill
+     repeats across every role card on screen at once, so avoiding the
+     blur here is a meaningful compositing-cost win with barely any
+     visible difference at this size. */
+  background: rgba(0, 0, 0, 0.32);
+  position: relative;
+  z-index: 2;
+}
+
+.role-card__edited-dot {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.role-card__ripple {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  transform: scale(0);
+  animation: role-card-ripple 650ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes role-card-ripple {
+  to {
+    transform: scale(18);
+    opacity: 0;
+  }
+}
+
+.role-card__meta {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.role-card__meta-text {
+  min-width: 0;
+}
+
+.role-card__label {
+  color: var(--md-sys-color-on-surface);
+}
+
+.role-card__hex {
+  white-space: nowrap;
+}
+
+.role-card__edit-btn {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.role-card__edit-btn:hover {
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
