@@ -179,7 +179,7 @@ function computeColorBuckets(imgEl, sampleSize) {
   return buckets;
 }
 
-const DEFAULT_SEED_COLOR = { hex: '#6750A4', h: 262, s: 46, l: 47 };
+const DEFAULT_SEED_COLOR = { hex: '#8AB4F8', h: 217, s: 89, l: 76 };
 
 /** Scores a bucket by population, saturation and mid-range lightness, and
  *  returns it alongside its averaged RGB/HSL so candidates can be compared

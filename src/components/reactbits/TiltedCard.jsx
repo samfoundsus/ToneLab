@@ -21,7 +21,8 @@ export default function TiltedCard({
   showMobileWarning = true,
   showTooltip = true,
   overlayContent = null,
-  displayOverlayContent = false
+  displayOverlayContent = false,
+  children = null
 }) {
   const ref = useRef(null);
   const x = useMotionValue();
@@ -98,18 +99,24 @@ export default function TiltedCard({
           scale
         }}
       >
-        <motion.img
-          src={imageSrc}
-          alt={altText}
-          className="tilted-card-img"
-          style={{
-            width: imageWidth,
-            height: imageHeight
-          }}
-        />
+        {children ? (
+          children
+        ) : (
+          <>
+            <motion.img
+              src={imageSrc}
+              alt={altText}
+              className="tilted-card-img"
+              style={{
+                width: imageWidth,
+                height: imageHeight
+              }}
+            />
 
-        {displayOverlayContent && overlayContent && (
-          <motion.div className="tilted-card-overlay">{overlayContent}</motion.div>
+            {displayOverlayContent && overlayContent && (
+              <motion.div className="tilted-card-overlay">{overlayContent}</motion.div>
+            )}
+          </>
         )}
       </motion.div>
 

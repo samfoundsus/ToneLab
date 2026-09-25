@@ -78,7 +78,7 @@ const THEME_LABEL = { light: 'Material Light', dark: 'Material Dark', expressive
 export function buildShareText(scheme, themeMode) {
   const themeLabel = THEME_LABEL[themeMode] || 'Material';
   const lines = [
-    `Material You Studio palette — ${themeLabel}`,
+    `ToneLab palette — ${themeLabel}`,
     `Primary ${scheme.primary}  ·  Secondary ${scheme.secondary}  ·  Tertiary ${scheme.tertiary}`,
     `Surface ${scheme.surface}  ·  Background ${scheme.background}`
   ];

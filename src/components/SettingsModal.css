@@ -2,13 +2,12 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: flex-end;
   justify-content: center;
   padding: var(--md-space-sm);
-  animation: settings-fade-in 200ms ease-out;
+  animation: settings-fade-in 180ms ease-out;
 }
 
 @keyframes settings-fade-in {
@@ -20,14 +19,16 @@
   width: 100%;
   max-width: 480px;
   border-radius: var(--md-shape-xl);
+  background: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline-variant);
   padding: var(--md-space-md);
   margin-bottom: 96px;
-  box-shadow: var(--md-elevation-4);
-  animation: settings-rise-in 260ms var(--md-motion-emphasized);
+  box-shadow: var(--md-elevation-3);
+  animation: settings-rise-in 220ms var(--md-motion-standard);
 }
 
 @keyframes settings-rise-in {
-  from { transform: translateY(24px); opacity: 0; }
+  from { transform: translateY(16px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
@@ -40,19 +41,25 @@
 
 .settings-modal__header p {
   color: var(--md-sys-color-on-surface);
+  font-weight: 600;
 }
 
 .settings-modal__close {
   background: var(--md-sys-color-surface-container-high);
-  border: none;
+  border: 1px solid var(--md-sys-color-outline-variant);
   color: var(--md-sys-color-on-surface);
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.settings-modal__close:hover {
+  background: var(--md-sys-color-surface-container-highest);
 }
 
 .settings-modal__body {
@@ -69,15 +76,18 @@
   padding: var(--md-space-sm);
   border-radius: var(--md-shape-md);
   background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .settings-modal__row p:first-child {
   color: var(--md-sys-color-on-surface);
   margin: 0 0 2px;
+  font-weight: 500;
 }
 
 .settings-modal__row p:last-child {
   margin: 0;
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .settings-modal__action {
@@ -89,9 +99,11 @@
   border: 1px solid var(--md-sys-color-outline-variant);
   background: transparent;
   color: var(--md-sys-color-primary);
+  font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
   font-size: 0.85rem;
+  transition: background-color 150ms ease;
 }
 
 .settings-modal__action:hover {

@@ -8,9 +8,8 @@ const kebab = (str) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 const EMPTY_OVERRIDES = { light: {}, dark: {}, expressive: {} };
 
 const ERROR_MESSAGES = {
-  UNSUPPORTED_FORMAT: 'Unsupported format. Please use JPG, PNG, JPEG or WEBP.',
-  FILE_TOO_LARGE: "That image is too large to process — try something under 45MB.",
-  DECODE_FAILED: "Couldn't read that image. Please try a different file."
+  UNSUPPORTED_FORMAT: 'Unsupported format. Please select an image file (JPG, PNG, WebP, GIF, BMP, AVIF).',
+  DECODE_FAILED: "Couldn't decode that image. Please verify the file and try again."
 };
 
 function applySchemeToRoot(scheme) {
@@ -91,7 +90,7 @@ export function useMaterialTheme() {
     } catch (err) {
       if (generationId !== generationIdRef.current) return; // superseded by a newer upload
       setStatus('error');
-      setErrorMessage(ERROR_MESSAGES[err.message] || 'Something went wrong reading that image.');
+      setErrorMessage(ERROR_MESSAGES[err.message] || err.message || 'Something went wrong reading that image.');
       return;
     }
 
@@ -116,7 +115,12 @@ export function useMaterialTheme() {
       setAccent(nextAccent);
       setSchemes(nextSchemes);
       setOverrides(EMPTY_OVERRIDES);
-      setSourceImage({ previewUrl: processed.previewUrl, fileName: file.name, downscaled: processed.downscaled });
+      setSourceImage({
+        previewUrl: processed.previewUrl,
+        fileName: file.name,
+        dimensions: processed.dimensions,
+        downscaled: processed.downscaled
+      });
       setRestoredFromShare(false);
       setStatus('ready');
     } catch (err) {

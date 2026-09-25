@@ -1,7 +1,9 @@
 .app-footer {
-  padding: var(--md-space-xl) 0 calc(var(--md-space-2xl) + 64px + env(safe-area-inset-bottom, 0px));
+  padding-top: var(--md-space-xl);
+  padding-bottom: calc(130px + env(safe-area-inset-bottom, 24px));
   border-top: 1px solid var(--md-sys-color-outline-variant);
   background: var(--md-sys-color-surface-container-low);
+  width: 100%;
 }
 
 .app-footer__inner {
@@ -23,28 +25,39 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
 }
 
 .app-footer__note {
-  max-width: 460px;
+  max-width: 520px;
+  margin: 0;
+  line-height: 1.5;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.875rem;
 }
 
 .app-footer__link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: var(--md-sys-color-primary);
+  gap: 8px;
+  color: var(--md-sys-color-on-surface);
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 10px 20px;
+  min-height: 44px;
   border-radius: var(--md-shape-full);
   border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 150ms var(--md-motion-standard), border-color 150ms var(--md-motion-standard);
+  margin-top: 4px;
 }
 
 .app-footer__link:hover {
   background: var(--md-sys-color-surface-container-high);
+  border-color: var(--md-sys-color-outline);
 }

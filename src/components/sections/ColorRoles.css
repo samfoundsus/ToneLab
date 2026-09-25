@@ -1,9 +1,56 @@
+.color-roles {
+  position: relative;
+  width: 100%;
+}
+
 .color-roles__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--md-space-md);
   flex-wrap: wrap;
+  margin-bottom: var(--md-space-md);
+}
+
+.color-roles__mode-highlight {
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
+}
+
+.color-roles__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.color-roles__copy-all-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  margin-top: 4px;
+  border-radius: var(--md-shape-full);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms var(--md-motion-standard),
+    border-color 150ms var(--md-motion-standard),
+    transform 120ms var(--md-motion-standard);
+}
+
+.color-roles__copy-all-btn:hover {
+  background: var(--md-sys-color-surface-container-high);
+  border-color: var(--md-sys-color-outline);
+}
+
+.color-roles__copy-all-btn:active {
+  transform: scale(0.97);
 }
 
 .color-roles__reset-btn {
@@ -11,51 +58,262 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-height: 44px;
   padding: 10px 18px;
   margin-top: 4px;
   border-radius: var(--md-shape-full);
   border: 1px solid var(--md-sys-color-outline-variant);
   background: var(--md-sys-color-surface-container-high);
   color: var(--md-sys-color-on-surface);
+  font-weight: 500;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color 200ms var(--md-motion-standard), transform 120ms var(--md-motion-standard);
+  transition: background-color 200ms var(--md-motion-standard),
+    border-color 150ms var(--md-motion-standard),
+    transform 120ms var(--md-motion-standard);
 }
 
 .color-roles__reset-btn:hover {
   background: var(--md-sys-color-surface-container-highest);
+  border-color: var(--md-sys-color-outline);
 }
 
 .color-roles__reset-btn:active {
   transform: scale(0.97);
 }
 
+/* Category Filter Chips Bar */
+.color-roles__filters-wrap {
+  margin-bottom: var(--md-space-lg);
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 2px 0 6px;
+}
+
+.color-roles__filters-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.color-roles__filters {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+  min-width: max-content;
+}
+
+.color-roles__filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  min-height: 38px;
+  border-radius: var(--md-shape-full);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  transition: background-color 150ms var(--md-motion-standard),
+    color 150ms var(--md-motion-standard),
+    border-color 150ms var(--md-motion-standard);
+}
+
+.color-roles__filter-chip:hover:not(.color-roles__filter-chip--active) {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.color-roles__filter-chip--active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 15%, transparent);
+  font-weight: 600;
+}
+
+.color-roles__filter-label {
+  display: inline-block;
+  line-height: 1;
+}
+
+.color-roles__filter-count {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface-variant);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.color-roles__filter-chip--active .color-roles__filter-count {
+  background: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 14%, transparent);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.color-roles__filter-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary);
+  flex-shrink: 0;
+}
+
+/* Workspace Layout */
+.color-roles__workspace {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-lg);
+  width: 100%;
+}
+
+.color-roles__groups-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-lg);
+  width: 100%;
+}
+
+/* Individual Semantic Group */
+.color-roles__group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: var(--md-space-md);
+  border-bottom: 1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 50%, transparent);
+}
+
+.color-roles__group:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.color-roles__group-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 0 2px;
+}
+
+.color-roles__group-titles {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.color-roles__group-title {
+  color: var(--md-sys-color-on-surface);
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.color-roles__group-desc {
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.color-roles__group-count {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.74rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* RESPONSIVE COLOR GRID */
+
+/* Default Mobile (<640px): strictly 2 columns */
 .color-roles__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--md-space-sm);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
 }
 
-@media (max-width: 480px) {
+/* Tablet (640px - 1023px): adaptive layout */
+@media (min-width: 640px) and (max-width: 1023px) {
   .color-roles__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .color-roles__grid--count-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .color-roles__grid--count-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 620px;
+  }
+
+  .color-roles__grid--count-7 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* Desktop workspace: edit (role grid) and verify (accessibility panel)
-   side by side instead of stacked, since they're directly complementary —
-   editing a color and seeing its contrast implications at the same time is
-   exactly the "design tool" feeling V3 is going for. Mobile/tablet keep
-   the simple stacked flow untouched. */
-@media (min-width: 1200px) {
-  .color-roles__workspace {
+/* Desktop (1024px+): adaptive directly to role count */
+@media (min-width: 1024px) {
+  .color-roles__grid {
     display: grid;
-    grid-template-columns: 1.65fr 1fr;
-    gap: var(--md-space-lg);
-    align-items: start;
+    gap: 14px;
+    width: 100%;
   }
 
-  .color-roles__grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  /* 4 roles: exactly 1 clean row of 4 */
+  .color-roles__grid--count-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* 3 roles: exactly 1 clean row of 3 */
+  .color-roles__grid--count-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* 2 roles: exactly 1 clean row of 2 */
+  .color-roles__grid--count-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 620px;
+  }
+
+  /* 7 roles (Surfaces & Background): 4 columns -> 4 on row 1, 3 on row 2 */
+  .color-roles__grid--count-7 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Mobile Header adjustments */
+@media (max-width: 767px) {
+  .color-roles__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .color-roles__reset-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .color-roles__group-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 }

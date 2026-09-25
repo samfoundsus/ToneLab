@@ -9,7 +9,7 @@ export default function Footer() {
           <span className="app-footer__mark">
             <Palette size={16} />
           </span>
-          <span className="md-title-medium">Material You Studio</span>
+          <span className="md-title-medium">ToneLab</span>
         </div>
 
         <p className="md-body-medium app-footer__note">

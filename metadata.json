@@ -1,0 +1,6 @@
+{
+  "name": "ToneLab",
+  "description": "Generate beautiful Material Design 3 color palettes from any wallpaper.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

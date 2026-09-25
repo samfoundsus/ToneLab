@@ -33,15 +33,13 @@ export function copyToClipboard(text) {
 
 // ---------------------------------------------------------------------
 // Content builders — each returns { filename, content, mime } and touches
-// nothing but the scheme it's given. `export*` (below) is a thin
-// "build + download" wrapper around each one; `exportAll` (V3) reuses the
-// exact same builders to assemble a ZIP, so the file format logic exists
-// in exactly one place regardless of how it's delivered.
+// nothing but the scheme it's given. All exports reflect the current active
+// scheme, including any manual role edits and Dark/Expressive mode.
 // ---------------------------------------------------------------------
 
 function buildJSONContent(scheme, schemeName) {
   const payload = {
-    name: 'Material You Studio Palette',
+    name: 'ToneLab Palette',
     scheme: schemeName,
     generatedAt: new Date().toISOString(),
     colors: scheme
@@ -55,7 +53,7 @@ function buildJSONContent(scheme, schemeName) {
 
 function buildCSSContent(scheme, schemeName) {
   const lines = [':root {'];
-  ROLE_LABELS.forEach(([key]) => {
+  Object.keys(scheme).forEach((key) => {
     if (scheme[key]) lines.push(`  --md-sys-color-${kebab(key)}: ${scheme[key]};`);
   });
   lines.push('}');
@@ -64,7 +62,7 @@ function buildCSSContent(scheme, schemeName) {
 
 function buildAndroidXMLContent(scheme, schemeName) {
   const lines = ['<?xml version="1.0" encoding="utf-8"?>', '<resources>'];
-  ROLE_LABELS.forEach(([key]) => {
+  Object.keys(scheme).forEach((key) => {
     if (scheme[key]) lines.push(`    <color name="md_${snake(key)}">${scheme[key]}</color>`);
   });
   lines.push('</resources>');
@@ -72,11 +70,11 @@ function buildAndroidXMLContent(scheme, schemeName) {
 }
 
 function buildTailwindContent(scheme, schemeName) {
-  const entries = ROLE_LABELS
-    .filter(([key]) => scheme[key])
-    .map(([key]) => `        '${kebab(key)}': '${scheme[key]}',`)
+  const entries = Object.keys(scheme)
+    .filter((key) => scheme[key])
+    .map((key) => `        '${kebab(key)}': '${scheme[key]}',`)
     .join('\n');
-  const content = `/** Material You Studio — Tailwind color tokens (${schemeName}) */
+  const content = `/** ToneLab — Tailwind color tokens (${schemeName}) */
 module.exports = {
   theme: {
     extend: {
@@ -93,12 +91,17 @@ ${entries}
 }
 
 function buildFlutterContent(scheme, schemeName) {
-  const toFlutterColor = (hex) => `Color(0xFF${hex.replace('#', '').toUpperCase()})`;
-  const content = `// Material You Studio — Flutter ColorScheme (${schemeName})
+  const toFlutterColor = (hex) => {
+    if (!hex) return 'Color(0xFF000000)';
+    const clean = hex.replace('#', '').toUpperCase();
+    return `Color(0xFF${clean.padStart(6, '0')})`;
+  };
+  const isDark = schemeName === 'dark' || schemeName === 'expressive';
+  const content = `// ToneLab — Flutter ColorScheme (${schemeName})
 import 'package:flutter/material.dart';
 
 final ColorScheme materialYou${schemeName[0].toUpperCase()}${schemeName.slice(1)}Scheme = ColorScheme(
-  brightness: Brightness.${schemeName === 'dark' ? 'dark' : 'light'},
+  brightness: Brightness.${isDark ? 'dark' : 'light'},
   primary: ${toFlutterColor(scheme.primary)},
   onPrimary: ${toFlutterColor(scheme.onPrimary)},
   primaryContainer: ${toFlutterColor(scheme.primaryContainer)},
@@ -124,10 +127,10 @@ final ColorScheme materialYou${schemeName[0].toUpperCase()}${schemeName.slice(1)
   outline: ${toFlutterColor(scheme.outline)},
   outlineVariant: ${toFlutterColor(scheme.outlineVariant)},
   inverseSurface: ${toFlutterColor(scheme.inverseSurface)},
-  onInverseSurface: ${toFlutterColor(scheme.inverseOnSurface)},
+  onInverseSurface: ${toFlutterColor(scheme.inverseOnSurface || scheme.inverseSurface)},
   inversePrimary: ${toFlutterColor(scheme.inversePrimary)},
-  shadow: ${toFlutterColor(scheme.shadow)},
-  scrim: ${toFlutterColor(scheme.scrim)},
+  shadow: ${toFlutterColor(scheme.shadow || '#000000')},
+  scrim: ${toFlutterColor(scheme.scrim || '#000000')},
 );
 `;
   return { filename: `material_you_${schemeName}_theme.dart`, content, mime: 'text/x-dart' };
@@ -143,7 +146,16 @@ function buildFigmaContent(scheme, schemeName) {
       description: `Material 3 ${label} role (${schemeName} scheme)`
     };
   });
-  const payload = { 'Material You Studio': { [schemeName]: tokens } };
+  ['surfaceContainerLowest', 'surfaceContainerLow', 'surfaceContainer', 'surfaceContainerHigh', 'surfaceContainerHighest'].forEach((key) => {
+    if (scheme[key]) {
+      tokens[key] = {
+        value: scheme[key],
+        type: 'color',
+        description: `Material 3 ${key} role (${schemeName} scheme)`
+      };
+    }
+  });
+  const payload = { 'ToneLab': { [schemeName]: tokens } };
   return {
     filename: `material-you-${schemeName}.tokens.json`,
     content: JSON.stringify(payload, null, 2),
@@ -152,7 +164,7 @@ function buildFigmaContent(scheme, schemeName) {
 }
 
 // ---------------------------------------------------------------------
-// Public "build + download" exports — behavior/output unchanged from V2.
+// Public "build + download" exports
 // ---------------------------------------------------------------------
 
 export function exportJSON(scheme, schemeName) {
@@ -186,11 +198,9 @@ export function exportFigmaTokens(scheme, schemeName) {
 }
 
 /**
- * V3: "Export All" — bundles every file-based export format (everything
- * except the clipboard-only "Copy HEX" action) into a single .zip, reusing
- * the exact same content builders as the individual export buttons so the
- * ZIP's contents are guaranteed to match what each button produces on its
- * own, including any manually-edited roles.
+ * "Export All" — bundles every file-based export format into a single .zip,
+ * guaranteed to match what each button produces on its own, including
+ * any manually-edited roles.
  */
 export function exportAllAsZip(scheme, schemeName) {
   const files = [
@@ -203,5 +213,5 @@ export function exportAllAsZip(scheme, schemeName) {
   ];
 
   const zipBlob = createZipBlob(files.map(({ filename, content }) => ({ name: filename, content })));
-  downloadBlobFile(`material-you-studio-${schemeName}-export.zip`, zipBlob, 'application/zip');
+  downloadBlobFile(`tonelab-${schemeName}-export.zip`, zipBlob, 'application/zip');
 }

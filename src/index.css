@@ -228,27 +228,30 @@ body,
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
+  padding: 4px 12px;
   border-radius: var(--md-shape-full);
   background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   margin-bottom: var(--md-space-sm);
 }
 
 .section-heading {
   color: var(--md-sys-color-on-background);
   margin: 0 0 var(--md-space-xs);
+  letter-spacing: -0.015em;
 }
 
 .section-subheading {
   max-width: 640px;
   margin: 0 0 var(--md-space-lg);
+  line-height: 1.6;
 }
 
 .glass-surface {
-  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 97%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--md-sys-color-surface-container);
   border: 1px solid var(--md-sys-color-outline-variant);
 }
 

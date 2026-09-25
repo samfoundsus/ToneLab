@@ -1,8 +1,15 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+  scroll-padding-bottom: calc(96px + env(safe-area-inset-bottom, 16px));
+}
+
 .app-shell {
   width: 100%;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  background: var(--md-sys-color-background);
 }
 
 .app-shell main {
@@ -15,17 +22,37 @@
   width: 100%;
 }
 
-/* Gentle, deliberate surface rhythm between sections — alternating between
-   the base surface and a slightly lower/quieter container tone, both
-   derived from the generated palette. Preview and Themes set their own
-   background directly (they also host an ambient BackgroundLayer). */
+/* Surface hierarchy and section separation through flat tonal surfaces and subtle dividers */
+#hero,
 #upload,
+#preview,
+#themes,
+#roles,
+#export {
+  scroll-margin-top: 72px;
+}
+
+#upload {
+  background: var(--md-sys-color-surface-container-lowest);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+}
+
+#preview {
+  background: var(--md-sys-color-surface);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+}
+
 #roles {
   background: var(--md-sys-color-surface-container-lowest);
-  transition: background-color 500ms var(--md-motion-standard);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
 }
 
 #export {
   background: var(--md-sys-color-surface);
-  transition: background-color 500ms var(--md-motion-standard);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+  padding-bottom: var(--md-space-2xl);
 }

@@ -2,107 +2,335 @@
   position: relative;
   overflow: hidden;
   background: var(--md-sys-color-surface);
-  transition: background-color 500ms var(--md-motion-standard);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
 }
 
 .phone-preview__container {
   position: relative;
   z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.phone-preview__theme-switch {
-  display: inline-flex;
-  flex-wrap: wrap;
-  max-width: 100%;
+/* Centered Header */
+.phone-preview__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 4px;
-  padding: 4px;
-  margin-bottom: var(--md-space-md);
-  border-radius: var(--md-shape-full);
+}
+
+.phone-preview__header .section-subheading {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* Unified Lightweight Controls Area */
+.phone-preview__controls-panel {
+  display: flex;
+  flex-direction: column;
+  margin: 24px auto 0;
+  max-width: 680px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 22px;
   background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: var(--md-elevation-1);
+  scroll-margin-top: 80px;
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+}
+
+.phone-preview__selectors-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.phone-preview__control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.phone-preview__group-label {
+  color: var(--md-sys-color-on-surface-variant);
+  font-weight: 600;
+  font-size: 0.74rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.phone-preview__segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-sys-color-surface-container);
   border: 1px solid var(--md-sys-color-outline-variant);
   transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
 }
 
-.phone-preview__theme-chip {
-  padding: 8px 18px;
+.phone-preview__seg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 15px;
+  min-height: 38px;
   border-radius: var(--md-shape-full);
   border: none;
   background: transparent;
   color: var(--md-sys-color-on-surface-variant);
   font-family: 'Roboto', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color 200ms var(--md-motion-standard), color 200ms var(--md-motion-standard);
+  transition: background-color 150ms var(--md-motion-standard),
+    color 150ms var(--md-motion-standard),
+    box-shadow 150ms var(--md-motion-standard);
 }
 
-@media (max-width: 380px) {
-  /* Three chips at full padding can just barely overflow the smallest
-     phone widths (~320-360px) once the section's side padding is
-     accounted for — tighten up rather than risk horizontal scroll. */
-  .phone-preview__theme-chip {
-    padding: 7px 12px;
-    font-size: 0.78rem;
-  }
-}
-
-.phone-preview__theme-chip--active {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
-
-.phone-preview__theme-chip:not(.phone-preview__theme-chip--active):hover {
+.phone-preview__seg-btn:hover:not(.phone-preview__seg-btn--active) {
   background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
 }
 
-.phone-preview__grid {
-  /* Explicit mobile/tablet/desktop breakpoints (matching the header/step
-     sections) instead of relying on flex-wrap alone: one column on mobile,
-     two on tablet, a spacious three-across on desktop. minmax(0, 1fr) —
-     not a bare 1fr — is what actually prevents a grid item from being
-     forced wider than its column and overflowing on narrow screens. */
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  gap: var(--md-space-md);
-  padding-top: var(--md-space-sm);
+.phone-preview__seg-btn--active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.phone-preview__seg-btn:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+.phone-preview__bar-divider {
+  width: 1px;
+  height: 34px;
+  background: var(--md-sys-color-outline-variant);
+  align-self: flex-end;
+  margin-bottom: 4px;
+}
+
+/* Compact Contextual Description Bar */
+.phone-preview__context-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.phone-preview__context-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-sys-color-surface-container-high);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.phone-preview__context-text {
+  margin: 0;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+/* Centered Phone Showcase */
+.phone-preview__showcase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  margin: 28px auto 0;
 }
 
-@media (min-width: 768px) {
-  .phone-preview__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--md-space-lg);
-  }
+/* Smartphone Device Chassis */
+.phone-device {
+  position: relative;
+  width: 300px;
+  height: 600px;
+  box-sizing: border-box;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.45));
 }
 
-@media (min-width: 1024px) {
-  .phone-preview__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.phone-device__btn {
+  position: absolute;
+  background: #24262b;
+  z-index: 2;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.phone-preview__stage {
+.phone-device__btn--volume {
+  left: -3px;
+  top: 105px;
+  width: 3px;
+  height: 58px;
+  border-radius: 2px 0 0 2px;
+}
+
+.phone-device__btn--power {
+  right: -3px;
+  top: 120px;
+  width: 3px;
+  height: 40px;
+  border-radius: 0 2px 2px 0;
+}
+
+.phone-device__chassis {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #17181c;
+  border-radius: 44px;
+  padding: 12px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
+}
+
+.phone-device__speaker {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background: #090a0c;
+  margin: 0 auto 5px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.phone-device__camera {
+  position: absolute;
+  top: 17px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #070809;
+  border: 1px solid #202227;
+  z-index: 10;
+  display: flex;
   align-items: center;
-  gap: var(--md-space-sm);
-  padding: var(--md-space-lg) var(--md-space-md) var(--md-space-md);
-  border-radius: 40px 40px 28px 28px;
-  background: var(--md-sys-color-surface-container-low);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  max-width: 100%;
-  transition: background-color 500ms var(--md-motion-standard), border-color 500ms var(--md-motion-standard);
+  justify-content: center;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.phone-preview__label {
-  color: var(--md-sys-color-on-surface-variant);
+.phone-device__camera-lens {
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #38bdf8 0%, #1d4ed8 70%, #030712 100%);
+  opacity: 0.85;
 }
 
+.phone-device__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 34px;
+  overflow: hidden;
+  background: #000000;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.phone-device__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.phone-device__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.015) 28%, transparent 55%);
+  z-index: 8;
+  border-radius: inherit;
+}
+
+/* Pixel Preview: Pure solid Material tonal surface with no gradient overlay */
+.phone-device[data-device="pixel"] .phone-device__glare {
+  display: none;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 640px) {
-  .phone-preview__stage {
-    padding: var(--md-space-md) var(--md-space-sm) var(--md-space-sm);
+  .phone-preview__selectors-row {
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .phone-preview__bar-divider {
+    display: none;
+  }
+
+  .phone-preview__control-group {
+    width: 100%;
+  }
+
+  .phone-preview__segmented {
+    width: 100%;
+  }
+
+  .phone-preview__seg-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 10px;
+    min-height: 42px;
+    font-size: 0.81rem;
+  }
+
+  .phone-preview__context-bar {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .phone-preview__showcase .tilted-card-figure,
+  .phone-preview__showcase .tilted-card-inner {
+    width: 270px !important;
+    height: 540px !important;
+  }
+
+  .phone-device {
+    width: 270px;
+    height: 540px;
+  }
+
+  .phone-device__chassis {
+    border-radius: 40px;
+    padding: 10px 8px;
+  }
+
+  .phone-device__screen {
+    border-radius: 30px;
   }
 }

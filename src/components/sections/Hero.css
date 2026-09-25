@@ -1,106 +1,46 @@
 .hero {
   position: relative;
-  min-height: 92svh;
+  min-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background: var(--md-sys-color-background);
-  transition: background-color 500ms var(--md-motion-standard);
-}
-
-.hero__aurora {
-  position: absolute;
-  inset: 0;
-  opacity: 0.4;
-  filter: saturate(0.82);
-  mix-blend-mode: normal;
-}
-
-/* Ambient hero lighting (desktop/tablet only — see media queries below).
-   This is deliberately a *separate* treatment from the shared
-   <BackgroundLayer/> component used elsewhere (Preview, Themes): Hero's
-   problem is specifically that a very wide viewport leaves the left/right
-   thirds looking like empty black, which needs gradients that spread much
-   further outward than BackgroundLayer's shapes are tuned for, and needs
-   to stay completely inert on mobile (where the current composition
-   already works well). One extra static div, radial-gradient only, no
-   filter/blur, no animation — the only thing that ever moves is the
-   color transition when the palette changes underneath it. */
-.hero__ambient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  transition: background 500ms var(--md-motion-standard);
-}
-
-@media (min-width: 900px) {
-  .hero__ambient {
-    background:
-      radial-gradient(ellipse 62% 70% at 10% 22%, color-mix(in srgb, var(--md-sys-color-primary) 11%, transparent) 0%, transparent 70%),
-      radial-gradient(ellipse 64% 74% at 90% 26%, color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent) 0%, transparent 72%),
-      radial-gradient(ellipse 55% 60% at 50% 96%, color-mix(in srgb, var(--md-sys-color-secondary) 8%, transparent) 0%, transparent 68%);
-  }
-}
-
-@media (min-width: 1280px) {
-  .hero__ambient {
-    background:
-      radial-gradient(ellipse 60% 78% at 6% 24%, color-mix(in srgb, var(--md-sys-color-primary) 15%, transparent) 0%, transparent 72%),
-      radial-gradient(ellipse 62% 80% at 94% 28%, color-mix(in srgb, var(--md-sys-color-tertiary) 14%, transparent) 0%, transparent 74%),
-      radial-gradient(ellipse 50% 60% at 50% 98%, color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent) 0%, transparent 68%);
-  }
-}
-
-.hero__scrim {
-  position: absolute;
-  inset: 0;
-  /* Softened from a hard 78% cutoff to a slower fade out to 92%, so the
-     ambient layer and Aurora can still read faintly toward the edges on
-     wide viewports instead of being fully painted over — the direct cause
-     of the "empty black rectangle" the desktop hero used to have. The true
-     corners (92%+) still resolve to solid background, and the text column
-     sits well inside the fully-transparent center, so legibility is
-     unaffected. */
-  background: radial-gradient(ellipse at center, transparent 0%, transparent 38%, var(--md-sys-color-background) 92%),
-    linear-gradient(to bottom, transparent 0%, var(--md-sys-color-background) 96%);
-  transition: background-color 500ms var(--md-motion-standard);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  padding: 104px 16px 52px;
+  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
 }
 
 .hero__content {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 96px;
-  color: var(--hero-fg, #ffffff);
+  color: var(--hero-fg, var(--md-sys-color-on-background));
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 .hero__heading {
-  color: var(--hero-fg, #ffffff);
-  margin: 0 0 var(--md-space-sm);
-  text-shadow: 0 6px 26px rgba(0, 0, 0, 0.18);
+  color: var(--hero-fg, var(--md-sys-color-on-background));
+  margin: var(--md-space-xs) 0 var(--md-space-sm);
+  text-shadow: none;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .hero__subtitle {
-  color: color-mix(in srgb, var(--hero-fg, #ffffff) 82%, transparent);
-  max-width: 560px;
+  color: var(--md-sys-color-on-surface-variant);
+  max-width: 540px;
   justify-content: center;
-  margin: 0 0 var(--md-space-lg);
-  font-size: 1.1rem;
-}
-
-@media (min-width: 1280px) {
-  .hero__subtitle {
-    /* The heading can reach up to 4.1rem at this width (see
-       .md-display-large's clamp); a slightly wider measure keeps the
-       subtitle's line length proportionate instead of looking cramped
-       underneath it. */
-    max-width: 640px;
-    font-size: 1.15rem;
-  }
+  margin: 0 0 var(--md-space-md);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  text-wrap: balance;
 }
 
 .hero__cta {
@@ -108,39 +48,208 @@
   justify-content: center;
 }
 
-.hero__scroll-hint {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 26px;
-  height: 42px;
-  border: 2px solid color-mix(in srgb, var(--hero-fg, #ffffff) 50%, transparent);
-  border-radius: 999px;
-  z-index: 2;
+.hero__cta-btn {
+  padding: 12px 28px !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  box-shadow: var(--md-elevation-1);
+  transition: transform 140ms var(--md-motion-standard), box-shadow 200ms var(--md-motion-standard), filter 180ms ease !important;
 }
 
-.hero__scroll-hint span {
-  display: block;
-  width: 4px;
-  height: 8px;
-  background: var(--hero-fg, #ffffff);
-  border-radius: 999px;
-  margin: 8px auto;
-  animation: hero-scroll-hint 1.8s ease-in-out infinite;
+.hero__cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--md-elevation-2);
 }
 
-@keyframes hero-scroll-hint {
-  0% { transform: translateY(0); opacity: 1; }
-  70% { transform: translateY(14px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 0; }
+.hero__cta-btn:active {
+  transform: translateY(0);
 }
 
-@media (max-width: 640px) {
-  .hero__content {
-    padding-top: 84px;
+/* Desktop-only visual element: hidden by default on mobile and tablet */
+.hero__visual {
+  display: none;
+}
+
+/* Mobile refinement (< 768px): keep compact without unnecessary height */
+@media (max-width: 767px) {
+  .hero {
+    padding: 88px 16px 36px;
   }
-  .hero__scroll-hint {
-    display: none;
+
+  .hero__subtitle {
+    font-size: 0.98rem;
+    margin-bottom: var(--md-space-sm);
+  }
+
+  .hero__cta-btn {
+    min-height: 48px;
+    padding: 12px 28px !important;
+  }
+}
+
+/* Tablet refinement (768px - 1023px): restrained intermediate layout, no desktop visual */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero {
+    min-height: auto;
+    padding: 112px 24px 60px;
+  }
+
+  .hero__subtitle {
+    max-width: 580px;
+    font-size: 1.125rem;
+    margin-bottom: var(--md-space-lg);
+  }
+}
+
+/* Desktop-only refinement (1024px+) */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 74vh;
+    max-height: 800px;
+    padding: 96px 24px 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__subtitle {
+    max-width: 600px;
+    font-size: 1.15rem;
+    margin-bottom: 22px;
+  }
+
+  .hero__cta {
+    margin-bottom: 26px;
+  }
+
+  .hero__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero__specimen-card {
+    width: 100%;
+    max-width: 580px;
+    background: var(--md-sys-color-surface-container-low);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-shape-lg);
+    padding: 14px 18px;
+    box-shadow: var(--md-elevation-1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background-color 460ms var(--md-motion-standard),
+      border-color 460ms var(--md-motion-standard);
+  }
+
+  .hero__specimen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .hero__specimen-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .hero__specimen-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--md-sys-color-primary);
+    transition: background-color 460ms var(--md-motion-standard);
+  }
+
+  .hero__specimen-badge {
+    font-size: 0.7rem;
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 500;
+  }
+
+  .hero__specimen-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .hero__specimen-col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hero__specimen-swatch {
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-end;
+    padding: 5px 6px;
+    transition: background-color 460ms var(--md-motion-standard),
+      transform 140ms ease,
+      border-color 460ms var(--md-motion-standard);
+  }
+
+  .hero__specimen-col:hover .hero__specimen-swatch {
+    transform: translateY(-2px);
+  }
+
+  .hero__specimen-token {
+    font-size: 0.65rem;
+    font-family: monospace;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    opacity: 0.92;
+  }
+
+  .hero__specimen-label-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .hero__specimen-role {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+    line-height: 1.2;
+  }
+
+  .hero__specimen-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  .hero__specimen-spectrum {
+    display: flex;
+    height: 4px;
+    border-radius: 999px;
+    overflow: hidden;
+    gap: 2px;
+  }
+
+  .hero__specimen-spectrum-bar {
+    flex: 1;
+    height: 100%;
+    transition: background-color 460ms var(--md-motion-standard);
+  }
+
+  .hero__specimen-caption {
+    font-size: 0.7rem;
+    color: var(--md-sys-color-on-surface-variant);
+    text-align: center;
   }
 }

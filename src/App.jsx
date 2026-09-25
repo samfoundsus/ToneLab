@@ -3,7 +3,6 @@ import TopAppBar from './components/sections/TopAppBar';
 import Hero from './components/sections/Hero';
 import UploadSection from './components/sections/UploadSection';
 import PhonePreview from './components/sections/PhonePreview';
-import ThemeSelector from './components/sections/ThemeSelector';
 import ColorRoles from './components/sections/ColorRoles';
 import ExportSection from './components/sections/ExportSection';
 import Footer from './components/sections/Footer';
@@ -12,12 +11,12 @@ import SettingsModal from './components/SettingsModal';
 import Toast from './components/ui/Toast';
 import { useMaterialTheme } from './hooks/useMaterialTheme';
 import { useToast } from './hooks/useToast';
+import { useActiveSection } from './hooks/useActiveSection';
 import { getContrastTextColor } from './utils/colorUtils';
 import './App.css';
 
 export default function App() {
   const {
-    mergedSchemes,
     activeScheme,
     activeRawScheme,
     activeOverrides,
@@ -38,6 +37,7 @@ export default function App() {
 
   const { toastMessage, toastKey, showToast } = useToast();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const activeSection = useActiveSection(['hero', 'upload', 'preview', 'themes', 'roles', 'export']);
 
   useEffect(() => {
     if (restoredFromShare) showToast('Palette restored from shared link');
@@ -45,6 +45,13 @@ export default function App() {
   }, [restoredFromShare]);
 
   const scrollToId = useCallback((id) => {
+    if (id === 'themes') {
+      const el = document.getElementById('themes') || document.getElementById('preview');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
@@ -76,7 +83,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <TopAppBar onNavigate={scrollToId} />
+      <TopAppBar onNavigate={scrollToId} activeSection={activeSection} />
 
       <main>
         <Hero
@@ -84,6 +91,7 @@ export default function App() {
           onGetStarted={scrollToUpload}
           themeMode={themeMode}
           textColor={heroTextColor}
+          scheme={activeScheme}
         />
 
         <UploadSection
@@ -97,8 +105,6 @@ export default function App() {
 
         <PhonePreview scheme={activeScheme} themeMode={themeMode} onThemeChange={setThemeMode} />
 
-        <ThemeSelector schemes={mergedSchemes} themeMode={themeMode} onSelect={setThemeMode} />
-
         <ColorRoles
           scheme={activeScheme}
           rawScheme={activeRawScheme}
@@ -108,6 +114,7 @@ export default function App() {
           onColorChange={setRoleColor}
           onColorReset={resetRoleColor}
           onResetPalette={handleResetPalette}
+          onNotify={showToast}
         />
 
         <ExportSection
@@ -120,7 +127,7 @@ export default function App() {
 
       <Footer />
 
-      <BottomDock onNavigate={scrollToId} onSettings={() => setSettingsOpen(true)} />
+      <BottomDock onNavigate={scrollToId} onSettings={() => setSettingsOpen(true)} activeSection={activeSection} />
 
       <SettingsModal
         open={settingsOpen}

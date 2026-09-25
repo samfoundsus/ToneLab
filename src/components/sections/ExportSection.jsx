@@ -1,6 +1,17 @@
 import { useCallback, useRef, useState } from 'react';
-import { FileJson, FileCode2, FileText, Braces, Smartphone, Layers, Copy, Check, Share2, PackageCheck, FolderArchive } from 'lucide-react';
-import SpecularButton from '../reactbits/SpecularButton';
+import {
+  FileJson,
+  FileCode2,
+  FileText,
+  Braces,
+  Smartphone,
+  Layers,
+  Copy,
+  Check,
+  Share2,
+  PackageCheck,
+  FolderArchive
+} from 'lucide-react';
 import MaterialButton from '../ui/MaterialButton';
 import FadeContent from '../reactbits/FadeContent';
 import AnimatedContent from '../reactbits/AnimatedContent';
@@ -21,7 +32,7 @@ const DOWNLOADED_FEEDBACK_MS = 1500;
 
 export default function ExportSection({ scheme, themeMode, buildShareLink, onNotify }) {
   const [copied, setCopied] = useState(false);
-  const [justDownloaded, setJustDownloaded] = useState(null); // format key, transient
+  const [justDownloaded, setJustDownloaded] = useState(null);
   const [exportingAll, setExportingAll] = useState(false);
   const downloadTimerRef = useRef(null);
 
@@ -38,9 +49,10 @@ export default function ExportSection({ scheme, themeMode, buildShareLink, onNot
     try {
       await copyToClipboard(lines);
       setCopied(true);
+      onNotify?.('All HEX values copied');
       setTimeout(() => setCopied(false), 1600);
     } catch (err) {
-      onNotify?.('Could not copy — please try again.');
+      onNotify?.('Could not copy HEX values');
     }
   }, [scheme, onNotify]);
 
@@ -54,18 +66,17 @@ export default function ExportSection({ scheme, themeMode, buildShareLink, onNot
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'Material You Studio palette', text, url });
+        await navigator.share({ title: 'ToneLab palette', text, url });
         onNotify?.('Palette shared');
         return;
       } catch (err) {
-        if (err && err.name === 'AbortError') return; // user cancelled the share sheet — not an error
-        // fall through to clipboard fallback below
+        if (err && err.name === 'AbortError') return;
       }
     }
 
     try {
       await copyToClipboard(`${text}\n${url}`);
-      onNotify?.('Palette link copied');
+      onNotify?.('Palette share link copied');
     } catch (err) {
       onNotify?.('Could not copy the link — please copy it from the address bar.');
     }
@@ -84,58 +95,115 @@ export default function ExportSection({ scheme, themeMode, buildShareLink, onNot
   }, [scheme, themeMode, onNotify]);
 
   const formatActions = [
-    { key: 'json', label: 'Export JSON', icon: FileJson, onClick: () => exportJSON(scheme, themeMode) },
-    { key: 'css', label: 'Export CSS Variables', icon: FileCode2, onClick: () => exportCSSVariables(scheme, themeMode) },
-    { key: 'xml', label: 'Export Android XML', icon: Smartphone, onClick: () => exportAndroidXML(scheme, themeMode) },
-    { key: 'tailwind', label: 'Export Tailwind Config', icon: Layers, onClick: () => exportTailwindConfig(scheme, themeMode) },
-    { key: 'flutter', label: 'Export Flutter Theme', icon: FileText, onClick: () => exportFlutterTheme(scheme, themeMode) },
-    { key: 'figma', label: 'Export Figma Tokens', icon: Braces, onClick: () => exportFigmaTokens(scheme, themeMode) }
+    {
+      key: 'json',
+      label: 'Export JSON',
+      shortLabel: 'JSON',
+      icon: FileJson,
+      onClick: () => {
+        exportJSON(scheme, themeMode);
+        onNotify?.('JSON palette exported');
+      }
+    },
+    {
+      key: 'css',
+      label: 'Export CSS Variables',
+      shortLabel: 'CSS',
+      icon: FileCode2,
+      onClick: () => {
+        exportCSSVariables(scheme, themeMode);
+        onNotify?.('CSS variables exported');
+      }
+    },
+    {
+      key: 'xml',
+      label: 'Export Android XML',
+      shortLabel: 'Android XML',
+      icon: Smartphone,
+      onClick: () => {
+        exportAndroidXML(scheme, themeMode);
+        onNotify?.('Android XML exported');
+      }
+    },
+    {
+      key: 'tailwind',
+      label: 'Export Tailwind Config',
+      shortLabel: 'Tailwind',
+      icon: Layers,
+      onClick: () => {
+        exportTailwindConfig(scheme, themeMode);
+        onNotify?.('Tailwind config exported');
+      }
+    },
+    {
+      key: 'flutter',
+      label: 'Export Flutter Theme',
+      shortLabel: 'Flutter',
+      icon: FileText,
+      onClick: () => {
+        exportFlutterTheme(scheme, themeMode);
+        onNotify?.('Flutter theme exported');
+      }
+    },
+    {
+      key: 'figma',
+      label: 'Export Figma Tokens',
+      shortLabel: 'Figma',
+      icon: Braces,
+      onClick: () => {
+        exportFigmaTokens(scheme, themeMode);
+        onNotify?.('Figma tokens exported');
+      }
+    }
   ];
 
   return (
     <section id="export" className="section export-section">
       <div className="container">
         <FadeContent duration={700} blur>
-          <span className="section-eyebrow md-label-large">Step 5</span>
+          <span className="section-eyebrow md-label-large">Step 4</span>
           <h2 className="md-headline-large section-heading">Export &amp; share your palette</h2>
           <p className="md-body-large section-subheading">
             Take the {themeMode} scheme anywhere — code, design tools, or mobile platforms — or send a link so
-            someone else can open the exact same palette. Every export reflects any colors you've manually edited.
+            someone else can open the exact same palette. Every export reflects your current palette and any manual edits.
           </p>
         </FadeContent>
 
         <AnimatedContent distance={50} duration={0.7} ease="power3.out">
-          <div className="export-section__hero-row">
-            <SpecularButton
-              size="md"
-              radius={20}
-              lineColor={scheme.primary}
-              baseColor={scheme.outline}
-              intensity={0.7}
-              proximity={220}
-              className="export-btn export-btn--share"
-              onClick={handleShare}
-            >
-              <span className="export-btn__inner">
-                <Share2 size={18} />
-                Share Palette
-              </span>
-            </SpecularButton>
-
-            <MaterialButton icon={copied ? Check : Copy} variant="outlined" onClick={handleCopyHex}>
-              {copied ? 'Copied!' : 'Copy HEX'}
-            </MaterialButton>
-
+          {/* Primary Action Row */}
+          <div className="export-section__primary-group">
             <MaterialButton
               icon={exportingAll ? PackageCheck : FolderArchive}
               variant="filled"
+              className="export-btn--primary-zip"
               onClick={handleExportAll}
               disabled={exportingAll}
             >
               Export All (.zip)
             </MaterialButton>
+
+            <div className="export-section__secondary-row">
+              <MaterialButton
+                icon={Share2}
+                variant="tonal"
+                className="export-btn--share"
+                onClick={handleShare}
+              >
+                Share Palette
+              </MaterialButton>
+
+              <MaterialButton
+                icon={copied ? Check : Copy}
+                variant="outlined"
+                className="export-btn--copy-hex"
+                onClick={handleCopyHex}
+              >
+                {copied ? 'Copied' : 'Copy HEX'}
+              </MaterialButton>
+            </div>
           </div>
 
+          {/* Formats Grid */}
           <div className="export-section__grid">
             {formatActions.map((action) => {
               const isDownloaded = justDownloaded === action.key;
@@ -144,12 +212,18 @@ export default function ExportSection({ scheme, themeMode, buildShareLink, onNot
                   key={action.key}
                   icon={isDownloaded ? Check : action.icon}
                   variant="tonal"
+                  className="export-format-btn"
                   onClick={() => {
                     action.onClick();
                     flashDownloaded(action.key);
                   }}
                 >
-                  {isDownloaded ? 'Downloaded' : action.label}
+                  <span className="export-btn__label-full">
+                    {isDownloaded ? 'Downloaded' : action.label}
+                  </span>
+                  <span className="export-btn__label-short">
+                    {isDownloaded ? 'Done' : action.shortLabel}
+                  </span>
                 </MaterialButton>
               );
             })}

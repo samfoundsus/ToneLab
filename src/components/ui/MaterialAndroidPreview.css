@@ -1,18 +1,15 @@
 .md-preview {
-  width: 240px;
-  height: 480px;
-  border-radius: 28px;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.45);
+  box-shadow: none;
   font-family: 'Roboto', sans-serif;
-  transition: transform 200ms var(--md-motion-standard), background-color 460ms var(--md-motion-standard), color 460ms var(--md-motion-standard);
-}
-
-.md-preview:hover {
-  transform: scale(1.03);
+  user-select: none;
+  transition: background-color 300ms var(--md-motion-standard), color 300ms var(--md-motion-standard);
 }
 
 .md-preview__statusbar {
@@ -20,128 +17,374 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px 4px;
+  padding: 8px 14px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.md-preview__status-time {
   font-size: 11px;
   font-weight: 600;
 }
 
+.md-preview__status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.md-preview__signal-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.md-preview__signal-bars span {
+  width: 2.2px;
+  border-radius: 1px;
+}
+
+.md-preview__status-5g {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.md-preview__battery {
+  width: 17px;
+  height: 9px;
+  border: 1.3px solid;
+  border-radius: 2.5px;
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.md-preview__battery::after {
+  content: '';
+  position: absolute;
+  right: -2.5px;
+  top: 1.5px;
+  width: 1.5px;
+  height: 3.5px;
+  background: currentColor;
+  border-radius: 0 1px 1px 0;
+}
+
+.md-preview__battery-level {
+  height: 100%;
+  border-radius: 1px;
+}
+
+/* M3 Small App Bar */
 .md-preview__appbar {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  transition: background-color 460ms var(--md-motion-standard), color 460ms var(--md-motion-standard);
+  gap: 8px;
+  padding: 6px 10px;
+  border-bottom: 1px solid transparent;
+  transition: background-color 300ms var(--md-motion-standard),
+    border-color 300ms var(--md-motion-standard),
+    color 300ms var(--md-motion-standard);
 }
 
 .md-preview__appbar-title {
   flex: 1;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.md-preview__list {
+.md-preview__appbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.md-preview__icon-btn {
+  background: transparent;
+  border: none;
+  padding: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: inherit;
+  opacity: 0.85;
+  cursor: default;
+}
+
+/* App Body Content */
+.md-preview__body {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 12px;
+  padding: 10px;
   overflow: hidden;
 }
 
+/* Hero Filled M3 Card */
+.md-preview__hero-card {
+  padding: 10px 12px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: background-color 300ms var(--md-motion-standard), color 300ms var(--md-motion-standard);
+}
+
+.md-preview__hero-eyebrow {
+  display: flex;
+  align-items: center;
+}
+
+.md-preview__hero-badge {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 1.5px 6px;
+  border-radius: 10px;
+}
+
+.md-preview__hero-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.md-preview__hero-text {
+  font-size: 9.5px;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.md-preview__chips-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+}
+
+.md-preview__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 8px;
+  font-size: 8.5px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+/* Standard M3 Component Card */
 .md-preview__card {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: 14px;
   border: 1px solid transparent;
-  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+  transition: background-color 300ms var(--md-motion-standard), border-color 300ms var(--md-motion-standard);
 }
 
-.md-preview__card-icon {
+.md-preview__avatar {
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 10px;
-  transition: background-color 460ms var(--md-motion-standard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 300ms var(--md-motion-standard);
 }
 
-.md-preview__card-lines {
+.md-preview__card-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 1px;
   min-width: 0;
 }
 
-.md-preview__card-line {
-  display: block;
-  height: 7px;
-  border-radius: 4px;
-  opacity: 0.92;
-  transition: background-color 460ms var(--md-motion-standard);
+.md-preview__card-title {
+  font-size: 11px;
+  font-weight: 600;
 }
 
-.md-preview__card-line--sub {
-  width: 40%;
-  opacity: 0.55;
+.md-preview__card-sub {
+  font-size: 9px;
+  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* M3 Switch Component */
+.md-preview__switch {
+  width: 32px;
+  height: 19px;
+  border-radius: 12px;
+  padding: 1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border: 1px solid;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.md-preview__switch-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Column/Metrics Card */
+.md-preview__card--column {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+}
+
+.md-preview__metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.md-preview__metric-title {
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.md-preview__metric-badge {
+  font-size: 8.5px;
+  font-weight: 600;
+  padding: 1.5px 6px;
+  border-radius: 6px;
+}
+
+.md-preview__progress-track {
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.md-preview__progress-bar {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.md-preview__swatches-strip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 1px;
+}
+
+.md-preview__swatch-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.md-preview__swatches-note {
+  font-size: 8px;
+  opacity: 0.8;
+  margin-left: auto;
+}
+
+.md-preview__badge-pill {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* Floating Action Button (M3 FAB) */
 .md-preview__fab {
   position: absolute;
-  right: 16px;
-  bottom: 88px;
-  width: 44px;
-  height: 44px;
-  border-radius: 16px;
+  right: 14px;
+  bottom: 74px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
   border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--md-elevation-2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   cursor: default;
-  transition: background-color 460ms var(--md-motion-standard), color 460ms var(--md-motion-standard);
+  z-index: 5;
+  transition: background-color 300ms var(--md-motion-standard),
+    color 300ms var(--md-motion-standard);
 }
 
+/* Navigation Bar (M3 Standard) */
 .md-preview__navbar {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 8px 6px 12px;
+  padding: 6px 4px 2px;
   border-top: 1px solid transparent;
-  transition: background-color 460ms var(--md-motion-standard), border-color 460ms var(--md-motion-standard);
+  transition: background-color 300ms var(--md-motion-standard),
+    border-color 300ms var(--md-motion-standard);
 }
 
 .md-preview__navitem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
 }
 
 .md-preview__navitem-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 24px;
-  border-radius: var(--md-shape-full);
-  transition: background-color 460ms var(--md-motion-standard), color 460ms var(--md-motion-standard);
+  width: 38px;
+  height: 22px;
+  border-radius: 12px;
+  transition: background-color 300ms var(--md-motion-standard),
+    color 300ms var(--md-motion-standard);
 }
 
 .md-preview__navitem-label {
-  font-size: 9px;
-  font-weight: 600;
-  transition: color 460ms var(--md-motion-standard);
+  font-size: 8px;
+  transition: color 300ms var(--md-motion-standard);
+}
+
+.md-preview__gesture-bar {
+  width: 48px;
+  height: 3px;
+  border-radius: 2px;
+  margin: 2px auto 4px;
+  opacity: 0.45;
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .md-preview {
-    transition: none;
-  }
-  .md-preview:hover {
-    transform: none;
+  .md-preview,
+  .md-preview * {
+    transition: none !important;
   }
 }

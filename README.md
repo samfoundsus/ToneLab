@@ -1,4 +1,4 @@
-# Material You Studio
+# ToneLab
 
 Generate beautiful **Material Design 3** color palettes from any wallpaper — right in your browser. Built with React, Vite, and ten [React Bits](https://reactbits.dev) components for a premium, Android‑16‑style "Material Expressive" feel.
 
@@ -154,7 +154,7 @@ src/
 
 1. The uploaded image is decoded once (via an object URL, not a giant base64 string), then drawn onto a small offscreen canvas and its pixels are quantized into coarse RGB buckets.
 2. Buckets are scored by population, saturation, and mid‑range lightness to find a vibrant, representative **source color**.
-3. From that source color's hue and saturation, Material You Studio derives Primary / Secondary / Tertiary / Neutral / Neutral‑Variant tonal ramps (an HSL‑based approximation of Material's HCT tonal system), with a hue‑aware saturation correction so yellow/green hues don't overshoot into neon territory.
+3. From that source color's hue and saturation, ToneLab derives Primary / Secondary / Tertiary / Neutral / Neutral‑Variant tonal ramps (an HSL‑based approximation of Material's HCT tonal system), with a hue‑aware saturation correction so yellow/green hues don't overshoot into neon territory.
 4. Each Material 3 **role** (Primary, On Primary, Primary Container, Surface, Outline, …) is mapped onto a specific tone on the appropriate ramp, separately for Light, Dark, and Expressive schemes.
 5. Any manually-edited roles are layered on top as a sparse override map, per theme mode.
 6. The active (merged) scheme is written to CSS custom properties on `:root`, so the entire UI — including the exported files and shared links — reflects your wallpaper and your edits live.

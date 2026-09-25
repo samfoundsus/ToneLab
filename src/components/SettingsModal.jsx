@@ -10,7 +10,7 @@ export default function SettingsModal({ open, onClose, onResetWallpaper, sourceI
   return (
     <div className="settings-modal__scrim" onClick={onClose}>
       <div
-        className="settings-modal glass-surface"
+        className="settings-modal"
         role="dialog"
         aria-modal="true"
         aria-label="Settings"
@@ -38,7 +38,7 @@ export default function SettingsModal({ open, onClose, onResetWallpaper, sourceI
             <div>
               <p className="md-title-medium">About</p>
               <p className="md-body-medium">
-                Material You Studio generates Material Design 3 palettes entirely on-device. No images or colors are
+                ToneLab generates Material Design 3 palettes entirely on-device. No images or colors are
                 ever uploaded to a server.
               </p>
             </div>

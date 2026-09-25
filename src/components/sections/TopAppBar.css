@@ -4,17 +4,16 @@
   left: 0;
   right: 0;
   z-index: 50;
-  padding: 14px var(--md-space-sm);
-  transition: background-color var(--md-motion-medium) var(--md-motion-standard), border-color var(--md-motion-medium) var(--md-motion-standard), box-shadow var(--md-motion-medium) var(--md-motion-standard);
+  padding: 12px var(--md-space-sm);
+  transition: background-color var(--md-motion-medium) var(--md-motion-standard),
+    border-color var(--md-motion-medium) var(--md-motion-standard),
+    box-shadow var(--md-motion-medium) var(--md-motion-standard);
   border-bottom: 1px solid transparent;
 }
 
-.top-app-bar--scrolled {
-  /* No backdrop-filter here on purpose: this bar is fixed and visible for
-     the entire scroll, so a blur would force the browser to resample the
-     page behind it on every frame — a common, avoidable source of scroll
-     jank. A near-solid tonal fill reads as "elevated" just as well. */
-  background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 99%, transparent);
+.top-app-bar--scrolled,
+.top-app-bar--menu-open {
+  background: var(--md-sys-color-surface-container-low);
   border-bottom-color: var(--md-sys-color-outline-variant);
   box-shadow: var(--md-elevation-1);
 }
@@ -25,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
 }
 
 .top-app-bar__brand {
@@ -59,37 +58,159 @@
 
 .top-app-bar__title {
   color: var(--md-sys-color-on-background);
+  font-size: clamp(1.05rem, 3.8vw, 1.25rem);
   white-space: nowrap;
 }
 
+/* Desktop Navigation */
 .top-app-bar__nav {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.top-app-bar__nav button {
+.top-app-bar__nav-btn {
   background: none;
-  border: none;
+  border: 1px solid transparent;
   color: var(--md-sys-color-on-surface-variant);
   cursor: pointer;
   padding: 8px 14px;
   border-radius: var(--md-shape-full);
   -webkit-tap-highlight-color: transparent;
-  transition: background-color var(--md-motion-fast) var(--md-motion-standard), color var(--md-motion-fast) var(--md-motion-standard), transform 120ms var(--md-motion-standard);
+  transition: background-color var(--md-motion-fast) var(--md-motion-standard),
+    color var(--md-motion-fast) var(--md-motion-standard),
+    border-color var(--md-motion-fast) var(--md-motion-standard),
+    transform 120ms var(--md-motion-standard);
 }
 
-.top-app-bar__nav button:hover {
+.top-app-bar__nav-btn:hover {
   background: var(--md-sys-color-surface-container-high);
   color: var(--md-sys-color-on-surface);
 }
 
-.top-app-bar__nav button:active {
+.top-app-bar__nav-btn--active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  font-weight: 600;
+}
+
+.top-app-bar__nav-btn:active {
   transform: scale(0.96);
 }
 
-@media (max-width: 760px) {
+/* Mobile Menu Toggle */
+.top-app-bar__mobile-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--md-shape-full);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--md-motion-fast) var(--md-motion-standard),
+    color var(--md-motion-fast) var(--md-motion-standard);
+}
+
+.top-app-bar__mobile-toggle:hover {
+  background: var(--md-sys-color-surface-container-high);
+}
+
+.top-app-bar__mobile-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Mobile Dropdown Sheet */
+.top-app-bar__mobile-sheet {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--md-sys-color-surface-container);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: var(--md-elevation-3);
+  padding: 12px 16px 16px;
+  animation: mobileNavSlideDown 200ms var(--md-motion-standard) forwards;
+}
+
+@keyframes mobileNavSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.top-app-bar__mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.top-app-bar__mobile-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: var(--md-shape-full);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 150ms var(--md-motion-standard),
+    color 150ms var(--md-motion-standard);
+}
+
+.top-app-bar__mobile-nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+.top-app-bar__mobile-nav-label {
+  flex: 1;
+}
+
+.top-app-bar__mobile-active-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--md-sys-color-primary);
+}
+
+.top-app-bar__mobile-nav-item:hover {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.top-app-bar__mobile-nav-item--active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  font-weight: 600;
+}
+
+/* Breakpoint adjustments */
+@media (max-width: 767px) {
   .top-app-bar__nav {
     display: none;
+  }
+  .top-app-bar__mobile-toggle {
+    display: inline-flex;
   }
 }

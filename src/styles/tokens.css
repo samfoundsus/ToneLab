@@ -1,50 +1,50 @@
 :root {
-  /* Baseline Material 3 seed (Google purple) — overwritten at runtime once
+  /* Baseline Material 3 seed (Graphite + Subtle Blue) — overwritten at runtime once
      a wallpaper is analyzed, via inline styles set on :root by React. */
-  --md-sys-color-primary: #D0BCFF;
-  --md-sys-color-on-primary: #381E72;
-  --md-sys-color-primary-container: #4F378B;
-  --md-sys-color-on-primary-container: #EADDFF;
+  --md-sys-color-primary: #8AB4F8;
+  --md-sys-color-on-primary: #07111D;
+  --md-sys-color-primary-container: #1B304A;
+  --md-sys-color-on-primary-container: #D8E8FF;
 
-  --md-sys-color-secondary: #CCC2DC;
-  --md-sys-color-on-secondary: #332D41;
-  --md-sys-color-secondary-container: #4A4458;
-  --md-sys-color-on-secondary-container: #E8DEF8;
+  --md-sys-color-secondary: #A9B8C8;
+  --md-sys-color-on-secondary: #141D26;
+  --md-sys-color-secondary-container: #202932;
+  --md-sys-color-on-secondary-container: #D5E4F5;
 
-  --md-sys-color-tertiary: #EFB8C8;
-  --md-sys-color-on-tertiary: #492532;
-  --md-sys-color-tertiary-container: #633B48;
-  --md-sys-color-on-tertiary-container: #FFD8E4;
+  --md-sys-color-tertiary: #9FB8C8;
+  --md-sys-color-on-tertiary: #111D25;
+  --md-sys-color-tertiary-container: #232B32;
+  --md-sys-color-on-tertiary-container: #D4E7F5;
 
   --md-sys-color-error: #F2B8B5;
   --md-sys-color-on-error: #601410;
   --md-sys-color-error-container: #8C1D18;
   --md-sys-color-on-error-container: #F9DEDC;
 
-  --md-sys-color-background: #141218;
-  --md-sys-color-on-background: #E6E0E9;
-  --md-sys-color-surface: #141218;
-  --md-sys-color-on-surface: #E6E0E9;
-  --md-sys-color-surface-variant: #49454F;
-  --md-sys-color-on-surface-variant: #CAC4D0;
-  --md-sys-color-surface-tint: #D0BCFF;
+  --md-sys-color-background: #0B0D0F;
+  --md-sys-color-on-background: #F1F3F4;
+  --md-sys-color-surface: #111417;
+  --md-sys-color-on-surface: #F1F3F4;
+  --md-sys-color-surface-variant: #1E2328;
+  --md-sys-color-on-surface-variant: #AEB5BD;
+  --md-sys-color-surface-tint: #8AB4F8;
 
-  --md-sys-color-outline: #938F99;
-  --md-sys-color-outline-variant: #49454F;
+  --md-sys-color-outline: #343A40;
+  --md-sys-color-outline-variant: #282E35;
 
-  --md-sys-color-inverse-surface: #E6E0E9;
-  --md-sys-color-inverse-on-surface: #322F35;
-  --md-sys-color-inverse-primary: #6750A4;
+  --md-sys-color-inverse-surface: #F1F3F4;
+  --md-sys-color-inverse-on-surface: #111417;
+  --md-sys-color-inverse-primary: #1A73E8;
 
   --md-sys-color-shadow: #000000;
   --md-sys-color-scrim: #000000;
 
-  /* Derived surface container tones — approximated from surface + primary */
-  --md-sys-color-surface-container-lowest: #0F0D13;
-  --md-sys-color-surface-container-low: #1D1B20;
-  --md-sys-color-surface-container: #211F26;
-  --md-sys-color-surface-container-high: #2B2930;
-  --md-sys-color-surface-container-highest: #36343B;
+  /* Derived surface container tones — Graphite neutral scale */
+  --md-sys-color-surface-container-lowest: #080A0C;
+  --md-sys-color-surface-container-low: #0E1013;
+  --md-sys-color-surface-container: #171B1F;
+  --md-sys-color-surface-container-high: #1C2126;
+  --md-sys-color-surface-container-highest: #22272D;
 
   /* Shape */
   --md-shape-xs: 8px;
